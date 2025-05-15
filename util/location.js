@@ -1,5 +1,5 @@
 const axios = require('axios');
-const APP_KEY = "AIzaSyAAEiU_Bmd6yu8IIg6ob9mdlLSYuH-aBxY"; // Moving appkey to a safety place later
+const APP_KEY = "APP_KEY"; 
 const HttpError = require('../models/httpError');
 
 const getCoordinates = async (address) => {
