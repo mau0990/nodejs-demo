@@ -7,7 +7,7 @@ router.get("/", usersController.getAllUsers);
 router.post("/signup", usersController.signUpUser);
 router.post("/login", [
     check('email').isEmail(),
-    check('name').notEmpty()
+    check('password').notEmpty()
 ], usersController.loginUser);
 
 module.exports = router;

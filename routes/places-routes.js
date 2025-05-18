@@ -12,9 +12,12 @@ router.post(
   [
     check("title").notEmpty(),
     check("address").notEmpty(),
+    check("description").notEmpty(),
     check("creator").notEmpty(),
   ],
   placesController.createPlace
 );
 
+router.put("/:pid", placesController.updatePlace);
+router.delete("/:pid", placesController.deletePlace);
 module.exports = router;

@@ -4,6 +4,8 @@ const HttpError = require('./models/httpError');
 const placeRouter = require('./routes/places-routes');
 const usersRouter = require('./routes/users-routes');
 
+const mongoose = require('mongoose');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -26,4 +28,13 @@ app.use((error, req, res, next) => {
     res.json({ message: error.message || 'An unknow error occurred!'});
     
 });
-app.listen('5000');
+
+mongoose
+  .connect(
+    "mongodb+srv://mau0990:b9SNPCbKIh8UnfMu@anguloapps.xwmk1.mongodb.net/?retryWrites=true&w=majority&appName=AnguloApps"
+  )
+  .then(() => {
+    app.listen("5000");
+  })
+  .catch((error) => console.log(error));
+

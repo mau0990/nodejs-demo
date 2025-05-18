@@ -1,5 +1,5 @@
 const axios = require('axios');
-const APP_KEY = "APP_KEY"; 
+const APP_KEY = "AIzaSyDLfGNnYn__kCku-K40LPemswPzaEC6OOI"; 
 const HttpError = require('../models/httpError');
 
 const getCoordinates = async (address) => {
@@ -12,7 +12,7 @@ const getCoordinates = async (address) => {
     if(!data || data.status === "ZERO_RESULTS"){
       throw new HttpError('Could not find any location for the specific address', 422);
     }
-
+    console.log(data);
     const coordinates = data.results[0].geometry.location;
     console.log(coordinates);
     return coordinates;
