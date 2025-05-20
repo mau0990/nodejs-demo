@@ -9,7 +9,7 @@ const checkAutorization = (req, res, next) => {
   if (!token) {
     return next(new HttpError("Authentication failed!", 401));
   }
-  const decodedToken = jwt.verify(token, "generated_secret");
+  const decodedToken = jwt.verify(token, process.env.JWT_KEY);
   req.userData = { userId: decodedToken.userId };
   next();
 };

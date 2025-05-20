@@ -40,9 +40,9 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://mau0990:b9SNPCbKIh8UnfMu@anguloapps.xwmk1.mongodb.net/?retryWrites=true&w=majority&appName=AnguloApps"
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@anguloapps.xwmk1.mongodb.net/?retryWrites=true&w=majority&appName=${process.env.DB_NAME}`
   )
   .then(() => {
-    app.listen("5000");
+    app.listen(process.env.PORT);
   })
   .catch((error) => console.log(error));

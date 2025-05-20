@@ -1,0 +1,10 @@
+{
+  "env": {
+    "DB_USER": "mau0990",
+    "DB_PASSWORD": "b9SNPCbKIh8UnfMu",
+    "DB_NAME": "AnguloApps",
+    "GOOGLE_API_KEY": "AIzaSyDLfGNnYn__kCku-K40LPemswPzaEC6OOI",
+    "JWT_KEY": "generated_secret_key",
+    "PORT": "5000"
+  }
+}

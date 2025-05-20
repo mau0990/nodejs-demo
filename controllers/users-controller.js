@@ -43,7 +43,7 @@ const signUpUser = async (req, res, next) => {
     return next(error); //We use next for asynchronous implementation
   }
 
-  const token = jwt.sign({ email, id: createdUser.id }, "generated_secret", {
+  const token = jwt.sign({ email, id: createdUser.id }, process.env.JWT_KEY, {
     expiresIn: "1h",
   });
   res.status(201).json({ userId: createdUser.id, email, token });
@@ -72,7 +72,7 @@ const loginUser = async (req, res, next) => {
     return next(new HttpError("No valid credentials", 404));
   }
 
-  const token = jwt.sign({ email, id: existingUser.id }, "generated_secret", {
+  const token = jwt.sign({ email, id: existingUser.id }, process.env.JWT_KEY, {
     expiresIn: "1h",
   });
 
