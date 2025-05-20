@@ -46,7 +46,7 @@ const createPlace = async (req, res, next) => {
     return next(new HttpError("Invalid input passed", 422));
   }
 
-  const { title, description, address, creator } = req.body;
+  const { title, description, address } = req.body;
   let coordinates;
   try {
     coordinates = await getCoordinates(address);
@@ -61,12 +61,12 @@ const createPlace = async (req, res, next) => {
     location: coordinates,
     image:
       "https://zelda.nintendo.com/tears-of-the-kingdom/_images/features/link-crouching.png",
-    creator,
+    creator: req.userData.userId,
   });
 
   let user;
   try {
-    user = await User.findById(creator);
+    user = await User.findById(req.userData.userId);
   } catch (err) {
     const error = new HttpError("Could get user.", 500);
     return next(error); //We use next for asynchronous implementation
@@ -96,13 +96,16 @@ const updatePlace = async (req, res, next) => {
   let place;
 
   try {
-    place = await Place.findById(pid);
+    place = await Place.findById(pid).populate("creator");
   } catch (err) {
     return next(new HttpError("Something went wrong in db.", 400));
   }
   place.title = title || place.title;
   place.description = description || place.description;
 
+  if (place.creator.id !== req.userData.userId) {
+    return next(new HttpError("You are not allow to update this place", 403));
+  }
   try {
     await place.save();
   } catch (error) {
@@ -123,6 +126,9 @@ const deletePlace = async (req, res, next) => {
   }
   if (!place) {
     return next(new HttpError("Place not found" + err, 404));
+  }
+  if (place.creator.id !== req.userData.userId) {
+    return next(new HttpError("You are not allow to update this place", 403));
   }
   try {
     //await place.deleteOne();
